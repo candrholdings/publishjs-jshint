@@ -25,9 +25,10 @@
     };
 
     function reviewFile(filename, content, options, log) {
-        var fragments = [];
+        var extname = (path.extname(filename) || '').toLowerCase(),
+            fragments = [];
 
-        if ((path.extname(filename) || '').toLowerCase() === '.html') {
+        if (extname === '.html') {
             var pattern = /(?:<script [^>]*?type="text\/javascript"[^>]*>)([\s\S]*?)(?:<\/script>)/gmi,
                 match;
 
@@ -37,7 +38,7 @@
                     code: match[1]
                 });
             }
-        } else  {
+        } else if (extname === '.js') {
             fragments.push({
                 lineNumberOffset: 0,
                 code: content
