@@ -19,7 +19,7 @@
     "test": "vows src/test/*-test.js --spec"
   },
   "dependencies": {
-    "publishjs": "file:..\\core"
+    "publishjs": "git:git@github.com:candrholdings/publishjs.git"
   },
   "devDependencies": {
     "async": "^1.0.0",
