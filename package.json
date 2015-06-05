@@ -19,6 +19,7 @@
     "test": "vows src/test/*-test.js --spec"
   },
   "dependencies": {
+    "jshint": "^2.8.0",
     "publishjs": "git:git@github.com:candrholdings/publishjs.git"
   },
   "devDependencies": {
