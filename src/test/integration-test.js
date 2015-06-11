@@ -12,12 +12,15 @@
                     log: false,
                     processors: {
                         jsx: require('../index')
-                    }
-                }).build(function (pipe, callback) {
-                    pipe.from(path.resolve(path.dirname(module.filename), 'integration-test-files/1'))
-                        .jsx()
-                        .run(callback);
-                }, function (err) {
+                    },
+                    pipes: [
+                        function (pipe, callback) {
+                            pipe.from(path.resolve(path.dirname(module.filename), 'integration-test-files/1'))
+                                .jsx()
+                                .run(callback);
+                        }
+                    ]
+                }).build(function (err) {
                     callback(null, err);
                 });
             },
@@ -37,12 +40,15 @@
                     log: false,
                     processors: {
                         jsx: require('../index')
-                    }
-                }).build(function (pipe, callback) {
-                    pipe.from(path.resolve(path.dirname(module.filename), 'integration-test-files/2'))
-                        .jsx()
-                        .run(callback);
-                }, function (err) {
+                    },
+                    pipes: [
+                        function (pipe, callback) {
+                            pipe.from(path.resolve(path.dirname(module.filename), 'integration-test-files/2'))
+                                .jsx()
+                                .run(callback);
+                        }
+                    ]
+                }).build(function (err) {
                     callback(null, err);
                 });
             },
