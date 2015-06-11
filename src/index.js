@@ -1,4 +1,4 @@
-!function (jshint, path, util) {
+!function (jshint, path, util, linq) {
     'use strict';
 
     jshint();
@@ -49,7 +49,7 @@
             var result = jshint(fragment.code, options);
 
             if (!result) {
-                log('One or more lines failed code review\n' + jshint.errors.map(function (error, index) {
+                log('One or more lines failed code review\n' + linq(jshint.errors).where(function (error) { return error; }).select(function (error, index) {
                     return [
                         filename,
                         ':',
@@ -59,7 +59,7 @@
                         ' <-- ',
                         error.reason
                     ].join('');
-                }).join('\n'));
+                }).run().join('\n'));
 
                 throw new Error('jshint failed');
             }
@@ -68,5 +68,6 @@
 }(
     require('jshint').JSHINT,
     require('path'),
-    require('publishjs').util
+    require('publishjs').util,
+    require('async-linq')
 );
