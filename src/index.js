@@ -13,13 +13,34 @@
             options = null;
         }
 
-        var that = this;
+        var that = this,
+            startTime = Date.now(),
+            fileCount = 0,
+            totalSize = 0;
 
-        outputs = inputs.all;
+        outputs = inputs = inputs.newOrChanged;
 
-        Object.getOwnPropertyNames(inputs.all).forEach(function (filename) {
-            reviewFile(filename, inputs.all[filename].toString(), options || {}, that.log);
+        Object.getOwnPropertyNames(inputs).forEach(function (filename) {
+            totalSize += inputs[filename].length;
+            fileCount++;
+            reviewFile(filename, inputs[filename].toString(), options || {}, that.log);
         });
+
+        var elapsed = Date.now() - startTime;
+
+        if (fileCount) {
+            that.log([
+                'Code reviewed ',
+                fileCount,
+                ' file(s), took ',
+                time.humanize(elapsed),
+                ' (',
+                number.bytes(totalSize / elapsed * 1e3),
+                '/s)'
+            ].join(''));
+        } else {
+            that.log('No new or changed files to code review');
+        }
 
         callback(null, outputs);
     };
@@ -28,7 +49,7 @@
         var extname = (path.extname(filename) || '').toLowerCase(),
             fragments = [];
 
-        if (extname === '.html') {
+        if (extname === '.html' || extname === '.htm') {
             var pattern = /(?:<script [^>]*?type="text\/javascript"[^>]*>)([\s\S]*?)(?:<\/script>)/gmi,
                 match;
 
