@@ -18,7 +18,8 @@
             fileCount = 0,
             totalSize = 0;
 
-        outputs = inputs = inputs.newOrChanged;
+        outputs = inputs.all;
+        inputs = inputs.newOrChanged;
 
         Object.getOwnPropertyNames(inputs).forEach(function (filename) {
             totalSize += inputs[filename].length;
