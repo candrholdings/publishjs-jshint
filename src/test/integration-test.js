@@ -11,12 +11,12 @@
                     cache: false,
                     log: false,
                     processors: {
-                        jsx: require('../index')
+                        jshint: require('../index')
                     },
                     pipes: [
                         function (pipe, callback) {
                             pipe.from(path.resolve(path.dirname(module.filename), 'integration-test-files/1'))
-                                .jsx()
+                                .jshint()
                                 .run(callback);
                         }
                     ]
@@ -39,12 +39,12 @@
                     cache: false,
                     log: false,
                     processors: {
-                        jsx: require('../index')
+                        jshint: require('../index')
                     },
                     pipes: [
                         function (pipe, callback) {
                             pipe.from(path.resolve(path.dirname(module.filename), 'integration-test-files/2'))
-                                .jsx()
+                                .jshint()
                                 .run(callback);
                         }
                     ]
